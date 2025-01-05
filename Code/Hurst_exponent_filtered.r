@@ -13,7 +13,9 @@ excluded_models <- c("Shahed-136/131", "ZALA", "Supercam", "Orlan-10", "Lancet",
 data_2024_filtered <- data_2024 %>% filter(!grepl(paste(excluded_models, collapse="|"), model))
 
 # Aggregate the number of attacks per day
-data_2024$date <- as.Date(data_2024$time_start)
-daily_attacks <- aggregate(launched ~ date, data_2024, sum)
-hurst_exponent <- hurstexp(data_2024_filtered$launched)
+data_2024_filtered$date <- as.Date(data_2024_filtered$time_start)
+daily_attacks <- aggregate(launched ~ date, data_2024_filtered, sum)
+
+
+hurst_exponent <- hurstexp(daily_attacks$launched)
 print(hurst_exponent)

@@ -17,18 +17,18 @@ daily_attacks <- aggregate(launched ~ date, data_2024, sum)
 # Plot the time series of daily attacks
 time_series_plot <- ggplot(daily_attacks, aes(x=date, y=launched)) +
   geom_line() +
-  labs(title="Daily Missile and Drone Attacks in 2024", x="Date", y="Number of Attacks")
+  labs(title="Щоденні ракетні удари та атаки дронів", x="Дата", y="Кількість атак")
 
 ggsave("Graphs/ACF/time_series_2024.png", plot = time_series_plot)
 # Perform ACF analysis
 png("Graphs/ACF/acf_daily_attacks.png")
-acf(daily_attacks$launched, main="ACF of Daily Attacks in 2024")
+acf(daily_attacks$launched, main="Графік автокореляції атак ракет і дронів у 2024 році")
 dev.off()
 
 # Exclude specified models
 excluded_models <- c("Shahed-136/131", "ZALA", "Supercam", "Orlan-10", "Lancet", "Merlin-VR")
 data_2024_filtered <- data_2024 %>% filter(!grepl(paste(excluded_models, collapse="|"), model))
 png("Graphs/ACF/acf_daily_attacks_filtered.png")
-acf(data_2024_filtered$launched, main="ACF of Daily Attacks in 2024 (Filtered)")
+acf(data_2024_filtered$launched, main="Графік автокореляції атак ракет")
 dev.off()
 

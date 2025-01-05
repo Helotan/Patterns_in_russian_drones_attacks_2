@@ -16,12 +16,12 @@ daily_attacks <- aggregate(launched ~ date, data_2024, sum)
 
 # Perform ACF analysis
 png("Graphs/PACF/acf_daily_attacks.png")
-pacf(daily_attacks$launched, main="PACF of Daily Attacks in 2024")
+pacf(daily_attacks$launched, main="Графік часткової автокореляції атак ракет і дронів у 2024 році")
 dev.off()
 
 # Exclude specified models
 excluded_models <- c("Shahed-136/131", "ZALA", "Supercam", "Orlan-10", "Lancet", "Merlin-VR")
 data_2024_filtered <- data_2024 %>% filter(!grepl(paste(excluded_models, collapse="|"), model))
 png("Graphs/PACF/pacf_daily_attacks_filtered.png")
-pacf(data_2024_filtered$launched, main="PACF of Daily Attacks in 2024 (Filtered)")
+pacf(data_2024_filtered$launched, main="Графік часткової автокореляції атак ракет у 2024 році")
 dev.off()
